@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_app/common/widgets/button/app_button.dart';
 import 'package:spotify_app/core/theme/app_colors.dart';
+import 'package:spotify_app/presentation/auth/pages/signup_signin.dart';
 import 'package:spotify_app/presentation/choose_mode/bloc/theme_cubit.dart';
-import 'package:spotify_app/presentation/intro/pages/intro_screen.dart';
 
 class ChooseModePage extends StatelessWidget {
   const ChooseModePage({super.key});
@@ -109,11 +109,12 @@ class ChooseModePage extends StatelessWidget {
                   height: 70,
                 ),
                 AppButton(
-                    onPressed: () {
+                    onTap: () {
+                      print("Button tapped 2");
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => IntroScreen(),
+                            builder: (context) => SignUpSignIn(),
                           ));
                     },
                     title: "Continue")

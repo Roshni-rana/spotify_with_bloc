@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_app/presentation/choose_mode/pages/choose_mode.dart';
+import 'package:spotify_app/presentation/intro/pages/intro_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const ChooseModePage(),
+          builder: (context) => const IntroScreen(),
         ));
   }
 }

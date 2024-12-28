@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/common/widgets/button/app_button.dart';
 import 'package:spotify_app/core/theme/app_colors.dart';
+import 'package:spotify_app/presentation/auth/pages/signup_signin.dart';
 import 'package:spotify_app/presentation/choose_mode/pages/choose_mode.dart';
 
 class IntroScreen extends StatelessWidget {
@@ -11,6 +12,9 @@ class IntroScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          Container(
+            color: Colors.black.withOpacity(0.15),
+          ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
             decoration: BoxDecoration(
@@ -63,30 +67,22 @@ class IntroScreen extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                InkWell(
+                AppButton(
                   onTap: () {
-                    Navigator.pushReplacement(
+                    print("Button tapped");
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ChooseModePage(),
+                          builder: (context) => SignUpSignIn(),
                         ));
                   },
-                  child: AppButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ChooseModePage(),
-                            ));
-                      },
-                      title: "Get Started"),
-                )
+                  title: "Get Started",
+                  height: 60, // Custom height
+                  fontsize: 16, // Custom font size
+                ),
               ],
             ),
           ),
-          Container(
-            color: Colors.black.withOpacity(0.15),
-          )
         ],
       ),
     );
