@@ -8,6 +8,8 @@ class AppButton extends StatelessWidget {
   final double? width;
   final double? fontsize;
   final double? borderRadius;
+  final Color? backgroundColor;
+  final Color? fontColor;
 
   const AppButton({
     Key? key,
@@ -17,6 +19,8 @@ class AppButton extends StatelessWidget {
     this.fontsize,
     this.borderRadius,
     this.width,
+    this.backgroundColor,
+    this.fontColor,
   }) : super(key: key);
 
   @override
@@ -29,14 +33,14 @@ class AppButton extends StatelessWidget {
         width: width ?? double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius ?? 12),
-          color: AppColors.primary,
+          color: backgroundColor ?? AppColors.primary,
         ),
         child: Text(
           title,
           style: TextStyle(
             fontSize: fontsize ?? 14, // Default font size if not provided
             fontWeight: FontWeight.w500,
-            color: Colors.white,
+            color: fontColor ?? Colors.white,
           ),
         ),
       ),
