@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/common/widgets/button/app_button.dart';
+import 'package:spotify_app/core/theme/app_colors.dart';
 
 class SignUpSignIn extends StatelessWidget {
   const SignUpSignIn({super.key});
@@ -7,61 +8,107 @@ class SignUpSignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   leading: GestureDetector(
+      //     onTap: () {
+      //       Navigator.pop(context);
+      //     },
+      //     child: Container(
+      //       margin: const EdgeInsets.all(8),
+      //       decoration: BoxDecoration(
+      //         color: Colors.grey.shade300,
+      //         shape: BoxShape.circle,
+      //       ),
+      //       child: const Icon(
+      //         Icons.arrow_back,
+      //         color: Colors.black,
+      //       ),
+      //     ),
+      //   ),
+      // ),
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
         child: Stack(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Align(
-                    alignment: Alignment.topCenter,
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      height: 70,
-                    )),
-                Text("Enjoy listening to music"),
-                Text(
-                    "Spotify is a proprietary Swedish audio streaming and media services provider"),
-                Row(
-                  children: [
-                    Expanded(
-                      child: AppButton(
-                        onTap: () {},
-                        title: "Register",
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: Image.asset(
+                  "assets/images/person_image.png",
+                  height: 380,
+                )),
+            Align(
+                alignment: Alignment.topRight,
+                child: Image.asset(
+                  "assets/images/Union.png",
+                  height: 120,
+                )),
+            Align(
+                alignment: Alignment.bottomRight,
+                child: Image.asset(
+                  "assets/images/Union_two.png",
+                  height: 250,
+                )),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 160,
+                  ),
+                  Align(
+                      alignment: Alignment.topCenter,
+                      child: Image.asset(
+                        "assets/images/logo.png",
+                        height: 70,
+                      )),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Text(
+                    "Enjoy Listening To Music",
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    "Spotify is a proprietary Swedish audio streaming and media services provider",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, color: AppColors.c797979),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppButton(
+                          height: 60,
+                          borderRadius: 20,
+                          onTap: () {},
+                          title: "Register",
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: AppButton(
-                        onTap: () {},
-                        title: "Register",
+                      SizedBox(
+                        width: 20,
                       ),
-                    )
-                  ],
-                )
-              ],
-            )
+                      Expanded(
+                        child: AppButton(
+                          backgroundColor: Colors.white,
+                          fontColor: Colors.black,
+                          onTap: () {},
+                          title: "Sign in",
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
