@@ -12,8 +12,24 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Image.asset(
+          "assets/images/logo.png",
+          height: 30,
+        ),
+        leading: IconButton(
+          icon: Container(
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  color: Colors.red, borderRadius: BorderRadius.circular(20)),
+              child: Icon(Icons.arrow_back)),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       backgroundColor: Colors.white,
-      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -30,7 +46,7 @@ class SignIn extends StatelessWidget {
               10.heightSizeBox,
               RichText(
                 text: TextSpan(
-                    text: 'If you need any support ',
+                    text: 'If You Need Any Support ',
                     style: TextStyle(color: Colors.black, fontSize: 14),
                     children: <TextSpan>[
                       TextSpan(
@@ -59,18 +75,37 @@ class SignIn extends StatelessWidget {
                 maxLines: 1,
                 validator: (val) {},
               ),
-              Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Recovery password",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                  )),
+              20.heightSizeBox,
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Recovery password",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black),
+                    )),
+              ),
+              20.heightSizeBox,
               AppButton(
+                height: 65,
+                borderRadius: 20,
                 onTap: () {},
                 title: "Sign In",
               ),
               Row(
-                children: [Divider(), Text("or"), Divider()],
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Divider(
+                      color: Colors.red,
+                    ),
+                  ),
+                  Text("or"),
+                  Flexible(child: Divider())
+                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

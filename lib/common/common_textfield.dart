@@ -36,7 +36,7 @@ class CommonTextField extends StatelessWidget {
         constraints: BoxConstraints(
           maxWidth: double.infinity,
         ),
-        fillColor: AppColors.white,
+        fillColor: Colors.white,
         suffixIcon: suffixIcon != null
             ? Padding(
                 padding: EdgeInsets.all(iconPadding ?? 8.0),
@@ -46,10 +46,10 @@ class CommonTextField extends StatelessWidget {
                 ),
               )
             : null,
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color: AppColors.darkGrey),
+            color: AppColors.darkGrey.withOpacity(0.5)),
         hintText: hintText,
       ),
     );

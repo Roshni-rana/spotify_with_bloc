@@ -16,15 +16,17 @@ class AppTheme {
         ),
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.white,
+        backgroundColor: Colors.white,
         elevation: 0,
         titleTextStyle: TextStyle(
           color: AppColors.primary,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        iconTheme:
-            const IconThemeData(color: Colors.transparent), // Override default
+        iconTheme: IconThemeData(color: Colors.black),
+        actionsIconTheme: IconThemeData(color: Colors.red),
+        // Adding a common back button
+        toolbarTextStyle: TextStyle(color: Colors.black),
       ),
       inputDecorationTheme: InputDecorationTheme(
           contentPadding: EdgeInsets.symmetric(vertical: 20),
@@ -48,7 +50,7 @@ class AppTheme {
               borderRadius: BorderRadius.circular(20),
               borderSide: BorderSide(
                   width: 1, color: AppColors.darkGrey.withOpacity(0.5))),
-          fillColor: AppColors.white,
+          fillColor: Colors.red,
           filled: true));
 
   static final darkTheme = ThemeData(
@@ -57,14 +59,18 @@ class AppTheme {
       brightness: Brightness.dark,
       fontFamily: 'Satoshi',
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.white,
+        centerTitle: true,
+        backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(color: AppColors.primary),
         titleTextStyle: TextStyle(
           color: AppColors.primary,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
+        iconTheme: IconThemeData(color: AppColors.primary),
+        actionsIconTheme: IconThemeData(color: Colors.red),
+        // Adding a common back button
+        toolbarTextStyle: TextStyle(color: AppColors.primary),
       ),
       inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
