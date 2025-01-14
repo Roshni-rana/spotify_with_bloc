@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/common/widgets/button/app_button.dart';
+import 'package:spotify_app/core/constant/string_constants.dart';
 import 'package:spotify_app/core/theme/app_colors.dart';
 import 'package:spotify_app/presentation/auth/pages/signup_signin.dart';
 import 'package:spotify_app/presentation/choose_mode/pages/choose_mode.dart';
@@ -46,7 +47,7 @@ class IntroScreen extends StatelessWidget {
                         ));
                   },
                   child: Text(
-                    "Enjoy listening to music",
+                    StringConstants.kEnjoy,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,

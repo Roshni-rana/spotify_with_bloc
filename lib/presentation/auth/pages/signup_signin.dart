@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/common/helpers/is_dark_mode.dart';
 import 'package:spotify_app/common/widgets/button/app_button.dart';
 import 'package:spotify_app/core/theme/app_colors.dart';
+import 'package:spotify_app/presentation/auth/pages/register.dart';
+import 'package:spotify_app/presentation/auth/pages/sign_in.dart';
 
 class SignUpSignIn extends StatelessWidget {
   const SignUpSignIn({super.key});
@@ -27,7 +30,7 @@ class SignUpSignIn extends StatelessWidget {
       //   ),
       // ),
       body: Container(
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: BoxDecoration(),
         child: Stack(
           children: [
             Align(
@@ -69,7 +72,9 @@ class SignUpSignIn extends StatelessWidget {
                     "Enjoy Listening To Music",
                     style: TextStyle(
                         fontSize: 22,
-                        color: Colors.black,
+                        color: context.isDarkMode
+                            ? AppColors.lightBackground
+                            : Colors.black,
                         fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
@@ -89,7 +94,13 @@ class SignUpSignIn extends StatelessWidget {
                         child: AppButton(
                           height: 60,
                           borderRadius: 20,
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Register(),
+                                ));
+                          },
                           title: "Register",
                         ),
                       ),
@@ -98,9 +109,16 @@ class SignUpSignIn extends StatelessWidget {
                       ),
                       Expanded(
                         child: AppButton(
-                          backgroundColor: Colors.white,
-                          fontColor: Colors.black,
-                          onTap: () {},
+                          backgroundColor: Colors.transparent,
+                          fontColor:
+                              context.isDarkMode ? Colors.white : Colors.black,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignIn(),
+                                ));
+                          },
                           title: "Sign in",
                         ),
                       )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/common/helpers/is_dark_mode.dart';
 import 'package:spotify_app/core/theme/app_colors.dart';
 
 class CommonTextField extends StatelessWidget {
@@ -36,7 +37,7 @@ class CommonTextField extends StatelessWidget {
         constraints: BoxConstraints(
           maxWidth: double.infinity,
         ),
-        fillColor: Colors.white,
+        fillColor: context.isDarkMode ? Colors.transparent : Colors.white,
         suffixIcon: suffixIcon != null
             ? Padding(
                 padding: EdgeInsets.all(iconPadding ?? 8.0),
@@ -49,7 +50,9 @@ class CommonTextField extends StatelessWidget {
         hintStyle: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color: AppColors.darkGrey.withOpacity(0.5)),
+            color: context.isDarkMode
+                ? AppColors.cA7A7A7.withOpacity(0.6)
+                : AppColors.darkGrey.withOpacity(0.5)),
         hintText: hintText,
       ),
     );

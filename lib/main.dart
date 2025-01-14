@@ -6,8 +6,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:spotify_app/core/theme/app_theme.dart';
 import 'package:spotify_app/firebase_options.dart';
-import 'package:spotify_app/presentation/auth/pages/sign_in.dart';
 import 'package:spotify_app/presentation/choose_mode/bloc/theme_cubit.dart';
+import 'package:spotify_app/presentation/splash/page/splash.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           darkTheme: AppTheme.darkTheme,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
-          home: SignIn(),
+          home: SplashScreen(),
         ),
       ),
     );
