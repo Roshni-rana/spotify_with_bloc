@@ -42,6 +42,8 @@ dependencies:
   firebase_core:
   cloud_firestore:
   firebase_auth:
+  go_router:
+  equatable:
 
 dev_dependencies:
   flutter_test:

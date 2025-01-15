@@ -74,7 +74,7 @@ class IntroScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SignUpSignIn(),
+                          builder: (context) => ChooseModePage(),
                         ));
                   },
                   title: "Get Started",

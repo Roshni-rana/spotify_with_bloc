@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:spotify_app/core/routes/routes.dart';
 import 'package:spotify_app/presentation/intro/pages/intro_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -30,10 +32,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> redirect() async {
     await Future.delayed(const Duration(seconds: 3));
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const IntroScreen(),
-        ));
+    context.goNamed(AppRoutes.intro.name);
+
+    // Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => const IntroScreen(),
+    //     ));
   }
 }

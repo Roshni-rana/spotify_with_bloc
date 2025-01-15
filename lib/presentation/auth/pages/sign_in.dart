@@ -1,12 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:spotify_app/common/common_textfield.dart';
 import 'package:spotify_app/common/helpers/is_dark_mode.dart';
 import 'package:spotify_app/common/widgets/button/app_button.dart';
+import 'package:spotify_app/core/routes/routes.dart';
 import 'package:spotify_app/core/theme/app_colors.dart';
 import 'package:spotify_app/core/utils/extension.dart';
 import 'package:spotify_app/generated/assets.dart';
+import 'package:spotify_app/presentation/home/pages/home_screen.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -14,7 +17,9 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.isDarkMode?Colors.black:Colors.white,
       appBar: AppBar(
+        backgroundColor: context.isDarkMode?Colors.black:Colors.transparent,
         centerTitle: true,
         title: Image.asset(
           "assets/images/logo.png",
@@ -24,7 +29,7 @@ class SignIn extends StatelessWidget {
           icon: Container(
               padding: EdgeInsets.all(7),
               decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  BoxDecoration(borderRadius: BorderRadius.circular(20), color: context.isDarkMode? AppColors.lightBackground: AppColors.grey.withOpacity(0.3)),
               child: SvgPicture.asset(
                 "assets/images/Left.svg",
                 height: 20,
@@ -107,7 +112,14 @@ class SignIn extends StatelessWidget {
               AppButton(
                 height: 65,
                 borderRadius: 20,
-                onTap: () {},
+                onTap: () {
+                  // context.goNamed(AppRoutes.homeScreen.name);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ));
+                },
                 title: "Sign In",
                 fontsize: 20,
               ),
@@ -135,22 +147,25 @@ class SignIn extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      Assets.imagesAppleIcon,
-                      height: 30,
-                    ),
-                    30.widthSizeBox,
+
                     Image.asset(
                       Assets.imagesGoogleIcon,
                       height: 30,
                     ),
+                    30.widthSizeBox,
+                    Image.asset(
+                      Assets.imagesAppleIcon,
+                      color:context.isDarkMode? Colors.white: Colors.black,
+                      height: 30,
+                    ),
+
                   ],
                 ),
               ),
               RichText(
                 text: TextSpan(
                     text: 'not a member ?',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    style: TextStyle(color:context.isDarkMode?Colors.white : Colors.black, fontSize: 18),
                     children: <TextSpan>[
                       TextSpan(
                           text: '  register now',

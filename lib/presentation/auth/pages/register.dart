@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_app/common/common_textfield.dart';
+import 'package:spotify_app/common/helpers/is_dark_mode.dart';
 import 'package:spotify_app/common/widgets/button/app_button.dart';
 import 'package:spotify_app/core/theme/app_colors.dart';
 import 'package:spotify_app/core/utils/extension.dart';
@@ -14,6 +15,7 @@ class Register extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: context.isDarkMode?Colors.black:Colors.transparent,
         centerTitle: true,
         title: Image.asset(
           "assets/images/logo.png",
@@ -23,7 +25,7 @@ class Register extends StatelessWidget {
           icon: Container(
               padding: EdgeInsets.all(7),
               decoration: BoxDecoration(
-                  color: AppColors.grey.withOpacity(0.2),
+                  color:context.isDarkMode? AppColors.lightBackground: AppColors.grey.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(20)),
               child: SvgPicture.asset(
                 "assets/images/Left.svg",
@@ -34,26 +36,30 @@ class Register extends StatelessWidget {
           },
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: context.isDarkMode?Colors.black:Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              80.heightSizeBox,
+              60.heightSizeBox,
               Text(
                 "Register",
                 style: TextStyle(
-                    fontSize: 25,
-                    color: AppColors.darkGrey,
+                    fontSize: 30,
+                    color:  context.isDarkMode
+                        ? AppColors.lightBackground
+                        : AppColors.darkGrey,
                     fontWeight: FontWeight.w600),
               ),
-              10.heightSizeBox,
+              20.heightSizeBox,
               RichText(
                 text: TextSpan(
                     text: 'If You Need Any Support ',
-                    style: TextStyle(color: Colors.black, fontSize: 14),
+                    style: TextStyle(color: context.isDarkMode
+                        ? AppColors.lightBackground
+                        : Colors.black, fontSize: 14),
                     children: <TextSpan>[
                       TextSpan(
                           text: '  click here',
@@ -122,22 +128,25 @@ class Register extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      Assets.imagesAppleIcon,
-                      height: 30,
-                    ),
-                    30.widthSizeBox,
+
                     Image.asset(
                       Assets.imagesGoogleIcon,
                       height: 30,
                     ),
+                    30.widthSizeBox,
+                    Image.asset(
+                      Assets.imagesAppleIcon,
+                      color: context.isDarkMode? Colors.white:Colors.black,
+                      height: 30,
+                    ),
+
                   ],
                 ),
               ),
               RichText(
                 text: TextSpan(
                     text: 'not a member ?',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    style: TextStyle(color:context.isDarkMode?AppColors.white: Colors.black, fontSize: 18),
                     children: <TextSpan>[
                       TextSpan(
                           text: '  register now',
