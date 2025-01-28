@@ -1,21 +1,30 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:spotify_app/common/common_textfield.dart';
 import 'package:spotify_app/common/helpers/is_dark_mode.dart';
 import 'package:spotify_app/common/widgets/button/app_button.dart';
+import 'package:spotify_app/core/routes/routes.dart';
 import 'package:spotify_app/core/theme/app_colors.dart';
 import 'package:spotify_app/core/utils/extension.dart';
+import 'package:spotify_app/data/models/auth/create_user_model.dart';
+import 'package:spotify_app/domain/usecases/auth/register_usecase.dart';
 import 'package:spotify_app/generated/assets.dart';
+import 'package:spotify_app/service_locator.dart';
 
 class Register extends StatelessWidget {
-  const Register({super.key});
+  Register({super.key});
+
+  TextEditingController fullNameTextController = TextEditingController();
+  TextEditingController emailTextController = TextEditingController();
+  TextEditingController passWordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.isDarkMode?Colors.black:Colors.transparent,
+        backgroundColor: context.isDarkMode ? Colors.black : Colors.transparent,
         centerTitle: true,
         title: Image.asset(
           "assets/images/logo.png",
@@ -25,7 +34,9 @@ class Register extends StatelessWidget {
           icon: Container(
               padding: EdgeInsets.all(7),
               decoration: BoxDecoration(
-                  color:context.isDarkMode? AppColors.lightBackground: AppColors.grey.withOpacity(0.3),
+                  color: context.isDarkMode
+                      ? AppColors.lightBackground
+                      : AppColors.grey.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(20)),
               child: SvgPicture.asset(
                 "assets/images/Left.svg",
@@ -36,7 +47,7 @@ class Register extends StatelessWidget {
           },
         ),
       ),
-      backgroundColor: context.isDarkMode?Colors.black:Colors.white,
+      backgroundColor: context.isDarkMode ? Colors.black : Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -48,7 +59,7 @@ class Register extends StatelessWidget {
                 "Register",
                 style: TextStyle(
                     fontSize: 30,
-                    color:  context.isDarkMode
+                    color: context.isDarkMode
                         ? AppColors.lightBackground
                         : AppColors.darkGrey,
                     fontWeight: FontWeight.w600),
@@ -57,9 +68,11 @@ class Register extends StatelessWidget {
               RichText(
                 text: TextSpan(
                     text: 'If You Need Any Support ',
-                    style: TextStyle(color: context.isDarkMode
-                        ? AppColors.lightBackground
-                        : Colors.black, fontSize: 14),
+                    style: TextStyle(
+                        color: context.isDarkMode
+                            ? AppColors.lightBackground
+                            : Colors.black,
+                        fontSize: 14),
                     children: <TextSpan>[
                       TextSpan(
                           text: '  click here',
@@ -73,6 +86,7 @@ class Register extends StatelessWidget {
               ),
               30.heightSizeBox,
               CommonTextField(
+                controller: fullNameTextController,
                 hintText: "Full name",
                 keyboardType: TextInputType.emailAddress,
                 maxLines: 1,
@@ -82,6 +96,7 @@ class Register extends StatelessWidget {
                 height: 20,
               ),
               CommonTextField(
+                controller: emailTextController,
                 hintText: "Enter Email",
                 keyboardType: TextInputType.emailAddress,
                 maxLines: 1,
@@ -91,6 +106,7 @@ class Register extends StatelessWidget {
                 height: 20,
               ),
               CommonTextField(
+                controller: passWordTextController,
                 hintText: "Password",
                 keyboardType: TextInputType.visiblePassword,
                 maxLines: 1,
@@ -100,7 +116,24 @@ class Register extends StatelessWidget {
               AppButton(
                 height: 65,
                 borderRadius: 20,
-                onTap: () {},
+                onTap: () async {
+                  final result = await s1<RegisterUseCase>().call(
+                      params: CreateUserModel(
+                          fullName: fullNameTextController.text.trim(),
+                          password: passWordTextController.text.trim(),
+                          email: emailTextController.text.trim()));
+
+                  /// l means when register failed , r means when register success
+                  result.fold(
+                    (l) {
+                      var snackbar = SnackBar(content: Text(l));
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    },
+                    (r) {
+                      context.goNamed(AppRoutes.homeScreen.name);
+                    },
+                  );
+                },
                 title: "Creat account",
                 fontsize: 20,
               ),
@@ -128,7 +161,6 @@ class Register extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
                     Image.asset(
                       Assets.imagesGoogleIcon,
                       height: 30,
@@ -136,17 +168,19 @@ class Register extends StatelessWidget {
                     30.widthSizeBox,
                     Image.asset(
                       Assets.imagesAppleIcon,
-                      color: context.isDarkMode? Colors.white:Colors.black,
+                      color: context.isDarkMode ? Colors.white : Colors.black,
                       height: 30,
                     ),
-
                   ],
                 ),
               ),
               RichText(
                 text: TextSpan(
                     text: 'not a member ?',
-                    style: TextStyle(color:context.isDarkMode?AppColors.white: Colors.black, fontSize: 18),
+                    style: TextStyle(
+                        color:
+                            context.isDarkMode ? AppColors.white : Colors.black,
+                        fontSize: 18),
                     children: <TextSpan>[
                       TextSpan(
                           text: '  register now',
