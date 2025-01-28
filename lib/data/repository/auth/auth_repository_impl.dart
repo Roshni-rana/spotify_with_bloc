@@ -11,8 +11,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> SignIn() {
-    // TODO: implement SignIn
-    throw UnimplementedError();
+  Future<Either> SignIn(CreateUserModel createUserModel) async {
+    return await s1<AuthFirebaseService>().SignIn(createUserModel);
   }
 }

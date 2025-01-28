@@ -1,25 +1,29 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spotify_app/common/common_textfield.dart';
 import 'package:spotify_app/common/helpers/is_dark_mode.dart';
 import 'package:spotify_app/common/widgets/button/app_button.dart';
-import 'package:spotify_app/core/routes/routes.dart';
 import 'package:spotify_app/core/theme/app_colors.dart';
 import 'package:spotify_app/core/utils/extension.dart';
+import 'package:spotify_app/data/models/auth/create_user_model.dart';
+import 'package:spotify_app/domain/usecases/auth/sign_in_usecase.dart';
 import 'package:spotify_app/generated/assets.dart';
 import 'package:spotify_app/presentation/home/pages/home_screen.dart';
+import 'package:spotify_app/service_locator.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+  SignIn({super.key});
+
+  TextEditingController emailTextController = TextEditingController();
+  TextEditingController passWordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.isDarkMode?Colors.black:Colors.white,
+      backgroundColor: context.isDarkMode ? Colors.black : Colors.white,
       appBar: AppBar(
-        backgroundColor: context.isDarkMode?Colors.black:Colors.transparent,
+        backgroundColor: context.isDarkMode ? Colors.black : Colors.transparent,
         centerTitle: true,
         title: Image.asset(
           "assets/images/logo.png",
@@ -28,8 +32,11 @@ class SignIn extends StatelessWidget {
         leading: IconButton(
           icon: Container(
               padding: EdgeInsets.all(7),
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(20), color: context.isDarkMode? AppColors.lightBackground: AppColors.grey.withOpacity(0.3)),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: context.isDarkMode
+                      ? AppColors.lightBackground
+                      : AppColors.grey.withOpacity(0.3)),
               child: SvgPicture.asset(
                 "assets/images/Left.svg",
                 height: 20,
@@ -77,6 +84,7 @@ class SignIn extends StatelessWidget {
               ),
               30.heightSizeBox,
               CommonTextField(
+                controller: emailTextController,
                 hintText: "Enter username or email",
                 keyboardType: TextInputType.emailAddress,
                 maxLines: 1,
@@ -86,6 +94,7 @@ class SignIn extends StatelessWidget {
                 height: 20,
               ),
               CommonTextField(
+                controller: passWordTextController,
                 hintText: "Password",
                 keyboardType: TextInputType.visiblePassword,
                 maxLines: 1,
@@ -112,13 +121,26 @@ class SignIn extends StatelessWidget {
               AppButton(
                 height: 65,
                 borderRadius: 20,
-                onTap: () {
+                onTap: () async {
                   // context.goNamed(AppRoutes.homeScreen.name);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ));
+
+                  final result = await s1<SignInUseCase>().call(
+                      params: CreateUserModel(
+                          email: emailTextController.text.trim(),
+                          password: passWordTextController.text.trim()));
+                  result.fold(
+                    (l) {
+                      var snackbar = SnackBar(content: Text(l));
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    },
+                    (r) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ));
+                    },
+                  );
                 },
                 title: "Sign In",
                 fontsize: 20,
@@ -147,7 +169,6 @@ class SignIn extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
                     Image.asset(
                       Assets.imagesGoogleIcon,
                       height: 30,
@@ -155,17 +176,18 @@ class SignIn extends StatelessWidget {
                     30.widthSizeBox,
                     Image.asset(
                       Assets.imagesAppleIcon,
-                      color:context.isDarkMode? Colors.white: Colors.black,
+                      color: context.isDarkMode ? Colors.white : Colors.black,
                       height: 30,
                     ),
-
                   ],
                 ),
               ),
               RichText(
                 text: TextSpan(
                     text: 'not a member ?',
-                    style: TextStyle(color:context.isDarkMode?Colors.white : Colors.black, fontSize: 18),
+                    style: TextStyle(
+                        color: context.isDarkMode ? Colors.white : Colors.black,
+                        fontSize: 18),
                     children: <TextSpan>[
                       TextSpan(
                           text: '  register now',
