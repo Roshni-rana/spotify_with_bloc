@@ -6,6 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spotify_app/core/constant/keys_constants.dart';
 import 'package:spotify_app/data/models/auth/create_user_model.dart';
 
+import '../../../core/constant/keys_constants.dart';
+import '../../models/auth/create_user_model.dart';
+
 abstract class AuthFirebaseService {
   static CollectionReference<Map<String, dynamic>> userAuth =
       FirebaseFirestore.instance.collection(KeysConstants.kUsers);
