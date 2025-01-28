@@ -9,6 +9,7 @@ import 'package:spotify_app/core/routes/routes.dart';
 import 'package:spotify_app/core/theme/app_theme.dart';
 import 'package:spotify_app/firebase_options.dart';
 import 'package:spotify_app/presentation/choose_mode/bloc/theme_cubit.dart';
+import 'package:spotify_app/presentation/home/bloc/home_bloc.dart';
 import 'package:spotify_app/presentation/splash/page/splash.dart';
 
 Future<void> main() async {
@@ -31,7 +32,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => ThemeCubit())],
+      providers: [
+        BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider<HomeBloc>(create:(BuildContext context) => HomeBloc())
+      ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, mode) => MaterialApp.router(
           title: 'Spotify',
