@@ -34,34 +34,35 @@ class AuthenticationImpl extends AuthFirebaseService {
         "fullName": createUserModel.email.toString(),
         "createAt": DateTime.now().toIso8601String()
       });
-      return Right("Register was SuccessFully");
+      return Right(
+          snackBar(label: "Register was SuccessFully", successColor: true));
     } on FirebaseException catch (e) {
-      String message = "";
-      if (e.code == "weak-password") {
-        message = "the password provider is too weak ";
-      } else if (e.code == "email-already-in-use") {
-        message = "An account already exist with that email";
-      }
-      return Left(message);
+      return Left(snackBar(label: e.message.toString(), successColor: false));
     }
   }
 
   @override
-  Future<Either> SignIn(CreateUserModel createUserModel) async {
-    try {
-      /// get the users
-      final userDoc =
-          await AuthFirebaseService.userAuth.doc(createUserModel.email).get();
-      if (userDoc.exists) {
-        CreateUserModel userModel = CreateUserModel.fromJson(userDoc.data()!);
-        if (userModel.password == createUserModel.password) {
-          return Right("SignIn was SuccessFully");
-        } else {
-          snackBar(label: "User and Password is not match");
-        }
-      }
-    } on FirebaseException catch (e) {
-      return Left(e.message);
-    }
+  Future<Either> SignIn(CreateUserModel createUserModel) {
+    // TODO: implement SignIn
+    throw UnimplementedError();
   }
+
+  // @override
+  // Future<Either> SignIn(CreateUserModel createUserModel) async {
+  //   try {
+  //     /// get the users
+  //     final userDoc =
+  //         await AuthFirebaseService.userAuth.doc(createUserModel.email).get();
+  //     if (userDoc.exists) {
+  //       CreateUserModel userModel = CreateUserModel.fromJson(userDoc.data()!);
+  //       if (userModel.password == createUserModel.password) {
+  //         return Right("SignIn was SuccessFully");
+  //       } else {
+  //         snackBar(label: "User and Password is not match");
+  //       }
+  //     }
+  //   } on FirebaseException catch (e) {
+  //     return Left(e.message);
+  //   }
+  // }
 }

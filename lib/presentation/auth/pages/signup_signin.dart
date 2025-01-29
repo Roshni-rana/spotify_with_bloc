@@ -98,7 +98,7 @@ class SignUpSignIn extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Register(),
+                                  builder: (context) => RegisterScreen(),
                                 ));
                           },
                           title: "Register",

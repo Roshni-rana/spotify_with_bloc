@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spotify_app/presentation/auth/pages/register.dart';
@@ -46,9 +45,11 @@ extension AppRoutesExtension on AppRoutes {
         return value;
     }
   }
+
   String get value {
     return toString().split('.').last;
   }
+
   Widget get widget {
     switch (this) {
       case AppRoutes.splash:
@@ -62,8 +63,8 @@ extension AppRoutesExtension on AppRoutes {
       case AppRoutes.signIn:
         return SignIn();
       case AppRoutes.register:
-        return Register();
-        case AppRoutes.homeScreen:
+        return RegisterScreen();
+      case AppRoutes.homeScreen:
         return HomeScreen();
 
       default:
@@ -75,5 +76,5 @@ extension AppRoutesExtension on AppRoutes {
 extension GoRouteExtension on GoRoute {
   AppRoutes? get getAppRoute => AppRoutes.values.firstWhere(
         (element) => element.name == name,
-  );
+      );
 }

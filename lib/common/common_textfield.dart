@@ -28,7 +28,9 @@ class CommonTextField extends StatelessWidget {
       maxLines: maxLines ?? 1,
       controller: controller,
       keyboardType: keyboardType,
-      cursorColor: AppColors.darkBackground,
+      cursorColor: context.isDarkMode
+          ? AppColors.cA7A7A7.withOpacity(0.6)
+          : AppColors.darkBackground,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
