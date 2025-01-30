@@ -11,3 +11,11 @@ class Register extends AuthEvent {
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
+
+class SignIn extends AuthEvent {
+  final BuildContext context;
+  SignIn({required this.context});
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}

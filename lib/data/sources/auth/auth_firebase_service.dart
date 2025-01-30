@@ -8,19 +8,22 @@ import 'package:spotify_app/core/constant/keys_constants.dart';
 import 'package:spotify_app/data/models/auth/create_user_model.dart';
 
 abstract class AuthFirebaseService {
-  static CollectionReference<Map<String, dynamic>> userAuth =
-      FirebaseFirestore.instance.collection(KeysConstants.kUsers);
-
   /// Sign_up
-  Future<Either> Register(CreateUserModel createUserModel);
+  Future<Either> register(CreateUserModel createUserModel);
 
   /// sign_in
-  Future<Either> SignIn(CreateUserModel createUserModel);
+  Future<Either> signIn(CreateUserModel createUserModel);
 }
 
 class AuthenticationImpl extends AuthFirebaseService {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  static CollectionReference<Map<String, dynamic>> userAuth =
+      FirebaseFirestore.instance.collection(KeysConstants.kUsers);
+
   @override
-  Future<Either> Register(CreateUserModel createUserModel) async {
+  Future<Either> register(CreateUserModel createUserModel) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: createUserModel.email.toString(),
@@ -42,27 +45,28 @@ class AuthenticationImpl extends AuthFirebaseService {
   }
 
   @override
-  Future<Either> SignIn(CreateUserModel createUserModel) {
-    // TODO: implement SignIn
-    throw UnimplementedError();
-  }
+  Future<Either<String, User>> signIn(CreateUserModel createUserModel) async {
+    try {
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithEmailAndPassword(
+        email: createUserModel.email.toString(),
+        password: createUserModel.password.toString(),
+      );
 
-  // @override
-  // Future<Either> SignIn(CreateUserModel createUserModel) async {
-  //   try {
-  //     /// get the users
-  //     final userDoc =
-  //         await AuthFirebaseService.userAuth.doc(createUserModel.email).get();
-  //     if (userDoc.exists) {
-  //       CreateUserModel userModel = CreateUserModel.fromJson(userDoc.data()!);
-  //       if (userModel.password == createUserModel.password) {
-  //         return Right("SignIn was SuccessFully");
-  //       } else {
-  //         snackBar(label: "User and Password is not match");
-  //       }
-  //     }
-  //   } on FirebaseException catch (e) {
-  //     return Left(e.message);
-  //   }
-  // }
+      /// check the firebase collection
+      DocumentSnapshot userDoc = await _firestore
+          .collection("users")
+          .doc(userCredential.user?.uid)
+          .get();
+
+      if (!userDoc.exists) {
+        print("successfully");
+        Right(userCredential.user!);
+      }
+
+      return Right(userCredential.user!);
+    } on FirebaseAuthException catch (e) {
+      return Left(snackBar(label: e.message.toString(), successColor: false));
+    }
+  }
 }

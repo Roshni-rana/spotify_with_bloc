@@ -13,7 +13,7 @@ enum AppRoutes {
   intro,
   chooseMode,
   signupsignin,
-  signIn,
+  SignInScreen,
   register,
   homeScreen
 }
@@ -60,8 +60,8 @@ extension AppRoutesExtension on AppRoutes {
         return ChooseModePage();
       case AppRoutes.signupsignin:
         return SignUpSignIn();
-      case AppRoutes.signIn:
-        return SignIn();
+      case AppRoutes.SignInScreen:
+        return SignInScreen();
       case AppRoutes.register:
         return RegisterScreen();
       case AppRoutes.homeScreen:

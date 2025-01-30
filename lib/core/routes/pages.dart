@@ -9,17 +9,15 @@ final GoRouter router = GoRouter(navigatorKey: navigatorKey, routes: [
   _parent(
     AppRoutes.splash,
   ),
-  _parent(
-    AppRoutes.intro,
-    routes: [
-      _child(AppRoutes.chooseMode, routes: [
-        _child(AppRoutes.signupsignin, routes: [
-          _child(AppRoutes.signIn),
-          _child(AppRoutes.register, routes: [_child(AppRoutes.homeScreen)]),
-        ]),
+  _parent(AppRoutes.intro, routes: [
+    _child(AppRoutes.chooseMode, routes: [
+      _child(AppRoutes.signupsignin, routes: [
+        _child(AppRoutes.SignInScreen),
+        _child(AppRoutes.register),
       ]),
-    ],
-  ),
+    ]),
+    _child(AppRoutes.homeScreen),
+  ]),
 ]);
 
 GoRoute _parent<T>(
